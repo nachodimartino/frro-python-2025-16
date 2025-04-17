@@ -7,7 +7,15 @@ def numeros_al_final_basico(lista: List[Union[float, str]]) -> List[Union[float,
     """Toma una lista de enteros y strings y devuelve una lista con todos los
     elementos numéricos al final.
     """
-    pass # Completar
+    numeros = []
+    for char in lista:
+        if type(char) == int:
+            numeros.append(char)
+            lista.remove(char)
+    
+    lista.extend(numeros)
+        
+    return lista
 
 
 # NO MODIFICAR - INICIO
@@ -20,22 +28,26 @@ assert numeros_al_final_basico([3, "a", 1, "b", 10, "j"]) == ["a", "b", "j", 3, 
 
 def numeros_al_final_comprension(lista: List[Union[float, str]]) -> List[Union[float, str]]:
     """Re-escribir utilizando comprensión de listas."""
-    pass # Completar
+    letras = [char for char in lista if type(char) == str]
+    numeros = [char for char in lista if type(char) in [int, float]]
+      
+    return letras + numeros
+ 
 
 
 # NO MODIFICAR - INICIO
-assert numeros_al_final_comprension([3, "a", 1, "b", 10, "j"]) == ["a", "b", "j", 3, 1, 10]
+assert numeros_al_final_comprension([3, 'a', 1, 'b', 10, 'j']) == ['a', 'b', 'j', 3, 1, 10]
 # NO MODIFICAR - FIN
 
 
-###############################################################################
+# ###############################################################################
 
 
 def numeros_al_final_sorted(lista: List[Union[float, str]]) -> List[Union[float, str]]:
     """Re-escribir utilizando la función sorted con una custom key.
     Referencia: https://docs.python.org/3/library/functions.html#sorted
     """
-    pass # Completar
+    return sorted(lista, key=lambda x: 1 if type(x) in [int, float] else 0)
 
 
 # NO MODIFICAR - INICIO
@@ -46,28 +58,28 @@ assert numeros_al_final_sorted([3, "a", 1, "b", 10, "j"]) == ["a", "b", "j", 3, 
 ###############################################################################
 
 
-def numeros_al_final_filter(lista: List[Union[float, str]]) -> List[Union[float, str]]:
-    """CHALLENGE OPCIONAL - Re-escribir utilizando la función filter.
-    Referencia: https://docs.python.org/3/library/functions.html#filter
-    """
-    pass # Completar
+# def numeros_al_final_filter(lista: List[Union[float, str]]) -> List[Union[float, str]]:
+#     """CHALLENGE OPCIONAL - Re-escribir utilizando la función filter.
+#     Referencia: https://docs.python.org/3/library/functions.html#filter
+#     """
+#     pass # Completar
 
 
-# NO MODIFICAR - INICIO
-if __name__ == "__main__":
-    assert numeros_al_final_filter([3, "a", 1, "b", 10, "j"]) == ["a", "b", "j", 3, 1, 10]
-# NO MODIFICAR - FIN
+# # NO MODIFICAR - INICIO
+# if __name__ == "__main__":
+#     assert numeros_al_final_filter([3, "a", 1, "b", 10, "j"]) == ["a", "b", "j", 3, 1, 10]
+# # NO MODIFICAR - FIN
 
 
 ###############################################################################
 
 
-def numeros_al_final_recursivo(lista: List[Union[float, str]]) -> List[Union[float, str]]:
-    """CHALLENGE OPCIONAL - Re-escribir de forma recursiva."""
-    pass # Completar
+# def numeros_al_final_recursivo(lista: List[Union[float, str]]) -> List[Union[float, str]]:
+#     """CHALLENGE OPCIONAL - Re-escribir de forma recursiva."""
+#     pass # Completar
 
 
-# NO MODIFICAR - INICIO
-if __name__ == "__main__":
-    assert numeros_al_final_recursivo([3, "a", 1, "b", 10, "j"]) == ["a", "b", "j", 3, 1, 10]
-# NO MODIFICAR - FIN
+# # NO MODIFICAR - INICIO
+# if __name__ == "__main__":
+#     assert numeros_al_final_recursivo([3, "a", 1, "b", 10, "j"]) == ["a", "b", "j", 3, 1, 10]
+# # NO MODIFICAR - FIN
