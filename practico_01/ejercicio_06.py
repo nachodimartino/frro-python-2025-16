@@ -12,14 +12,15 @@ def numeros_al_final_basico(lista: List[Union[float, str]]) -> List[Union[float,
         if type(char) == int:
             numeros.append(char)
             lista.remove(char)
-    
+
     lista.extend(numeros)
-        
+
     return lista
 
 
 # NO MODIFICAR - INICIO
-assert numeros_al_final_basico([3, "a", 1, "b", 10, "j"]) == ["a", "b", "j", 3, 1, 10]
+assert numeros_al_final_basico([3, "a", 1, "b", 10, "j"]) == [
+    "a", "b", "j", 3, 1, 10]
 # NO MODIFICAR - FIN
 
 
@@ -30,13 +31,13 @@ def numeros_al_final_comprension(lista: List[Union[float, str]]) -> List[Union[f
     """Re-escribir utilizando comprensión de listas."""
     letras = [char for char in lista if type(char) == str]
     numeros = [char for char in lista if type(char) in [int, float]]
-      
+
     return letras + numeros
- 
 
 
 # NO MODIFICAR - INICIO
-assert numeros_al_final_comprension([3, 'a', 1, 'b', 10, 'j']) == ['a', 'b', 'j', 3, 1, 10]
+assert numeros_al_final_comprension([3, 'a', 1, 'b', 10, 'j']) == [
+    'a', 'b', 'j', 3, 1, 10]
 # NO MODIFICAR - FIN
 
 
@@ -51,7 +52,8 @@ def numeros_al_final_sorted(lista: List[Union[float, str]]) -> List[Union[float,
 
 
 # NO MODIFICAR - INICIO
-assert numeros_al_final_sorted([3, "a", 1, "b", 10, "j"]) == ["a", "b", "j", 3, 1, 10]
+assert numeros_al_final_sorted([3, "a", 1, "b", 10, "j"]) == [
+    "a", "b", "j", 3, 1, 10]
 # NO MODIFICAR - FIN
 
 

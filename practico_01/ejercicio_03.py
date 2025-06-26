@@ -13,7 +13,8 @@ def operacion_basica(a: float, b: float, multiplicar: bool) -> Union[float, str]
         - Utilizar un único return.
         - No utilizar AND ni OR.
     """
-    resultado = a * b if multiplicar else ( (a / b) if b != 0  else  "Operación no válida" )
+    resultado = a * \
+        b if multiplicar else ((a / b) if b != 0 else "Operación no válida")
     return resultado
 
 
