@@ -8,8 +8,8 @@ def numeros_al_final_basico(lista: List[Union[float, str]]) -> List[Union[float,
     elementos numéricos al final.
     """
     numeros = []
-    for char in lista:
-        if type(char) == int:
+    for char in lista[:]:
+        if isinstance(char, int):
             numeros.append(char)
             lista.remove(char)
 
@@ -29,8 +29,8 @@ assert numeros_al_final_basico([3, "a", 1, "b", 10, "j"]) == [
 
 def numeros_al_final_comprension(lista: List[Union[float, str]]) -> List[Union[float, str]]:
     """Re-escribir utilizando comprensión de listas."""
-    letras = [char for char in lista if type(char) == str]
-    numeros = [char for char in lista if type(char) in [int, float]]
+    letras = [char for char in lista if isinstance(char, str)]
+    numeros = [char for char in lista if isinstance(char, (int, float))]
 
     return letras + numeros
 
