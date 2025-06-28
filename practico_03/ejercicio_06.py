@@ -6,26 +6,19 @@ from typing import List
 
 # NO MODIFICAR - INICIO
 class Article:
-    """Agregar los métodos que sean necesarios para que los test funcionen.
-    Hint: los métodos necesarios son todos magic methods
-    Referencia: https://docs.python.org/3/reference/datamodel.html#basic-customization
-    """
-
     def __init__(self, name: str) -> None:
         self.name = name
 
-    # NO MODIFICAR - FIN
+    def __eq__(self, other: object) -> bool:
+        if not isinstance(other, Article):
+            return NotImplemented
+        return self.name == other.name
 
-    # Completar
+    def __repr__(self) -> str:
+        return f'Article("{self.name}")'
 
 
-# NO MODIFICAR - INICIO
 class ShoppingCart:
-    """Agregar los métodos que sean necesarios para que los test funcionen.
-    Hint: los métodos necesarios son todos magic methods
-    Referencia: https://docs.python.org/3/reference/datamodel.html#basic-customization
-    """
-
     def __init__(self, articles: List[Article] = None) -> None:
         if articles is None:
             self.articles = []
@@ -38,22 +31,28 @@ class ShoppingCart:
 
     def remove(self, remove_article: Article) -> ShoppingCart:
         new_articles = []
-
         for article in self.articles:
             if article != remove_article:
                 new_articles.append(article)
-
         self.articles = new_articles
-
         return self
 
-    # NO MODIFICAR - FIN
+    def __str__(self) -> str:
+        return str([article.name for article in self.articles])
 
-    # Completar
+    def __repr__(self) -> str:
+        return f"ShoppingCart([{', '.join(repr(article) for article in self.articles)}])"
+
+    def __eq__(self, other: object) -> bool:
+        if not isinstance(other, ShoppingCart):
+            return NotImplemented
+        return sorted(self.articles, key=lambda a: a.name) == sorted(other.articles, key=lambda a: a.name)
+
+    def __add__(self, other: ShoppingCart) -> ShoppingCart:
+        return ShoppingCart(self.articles + other.articles)
 
 
 # NO MODIFICAR - INICIO
-
 manzana = Article("Manzana")
 pera = Article("Pera")
 tv = Article("Television")
