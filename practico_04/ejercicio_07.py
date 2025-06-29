@@ -2,8 +2,8 @@
 
 import datetime
 
-from practico_04.ejercicio_02 import agregar_persona
-from practico_04.ejercicio_06 import reset_tabla
+from ejercicio_02 import agregar_persona
+from ejercicio_06 import reset_tabla
 
 
 def agregar_peso(id_persona, fecha, peso):
@@ -19,19 +19,47 @@ def agregar_peso(id_persona, fecha, peso):
     Debe devolver:
     - ID del peso registrado.
     - False en caso de no cumplir con alguna validacion."""
+    import sqlite3
+    from ejercicio_04 import buscar_persona
 
-    pass # Completar
+    if not buscar_persona(id_persona):
+        return False
+
+    conn = sqlite3.connect("database.db")
+    conn.execute("PRAGMA foreign_keys = ON")
+    cursor = conn.cursor()
+
+    cursor.execute("""
+        SELECT 1 FROM PersonaPeso 
+        WHERE IdPersona = ? AND Fecha > ?
+    """, (id_persona, fecha.strftime("%Y-%m-%d")))
+
+    if cursor.fetchone() is not None:
+        conn.close()
+        return False
+
+    cursor.execute("""
+        INSERT INTO PersonaPeso(IdPersona, Fecha, Peso) 
+        VALUES (?, ?, ?)
+        """, (id_persona, fecha.strftime("%Y-%m-%d"), peso))
+
+    conn.commit()
+    last_id = cursor.lastrowid
+    conn.close()
+    return last_id
 
 
 # NO MODIFICAR - INICIO
 @reset_tabla
 def pruebas():
-    id_juan = agregar_persona('juan perez', datetime.datetime(1988, 5, 15), 32165498, 180)
+    id_juan = agregar_persona(
+        'juan perez', datetime.datetime(1988, 5, 15), 32165498, 180)
     assert agregar_peso(id_juan, datetime.datetime(2018, 5, 26), 80) > 0
     # Test Id incorrecto
     assert agregar_peso(200, datetime.datetime(1988, 5, 15), 80) == False
     # Test Registro previo al 2018-05-26
     assert agregar_peso(id_juan, datetime.datetime(2018, 5, 16), 80) == False
+
 
 if __name__ == '__main__':
     pruebas()
